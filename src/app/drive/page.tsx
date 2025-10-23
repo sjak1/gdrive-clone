@@ -15,8 +15,11 @@ export default function DrivePage() {
     if (path.length === 1) {
       router.push("/drive")
     } else {
-      const folderId = path[path.length - 1].toLowerCase().replace(/\s+/g, "-")
-      router.push(`/drive/${folderId}`)
+      const lastPath = path[path.length - 1]
+      if (lastPath) {
+        const folderId = lastPath.toLowerCase().replace(/\s+/g, "-")
+        router.push(`/drive/${folderId}`)
+      }
     }
   }
 

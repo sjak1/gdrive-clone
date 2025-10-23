@@ -36,7 +36,7 @@ export default function FolderPage() {
     if (path.length === 1) {
       router.push("/drive")
     } else {
-      const targetId = path[path.length - 1].toLowerCase().replace(/\s+/g, "-")
+      const targetId = path[path.length - 1]?.toLowerCase().replace(/\s+/g, "-")
       router.push(`/drive/${targetId}`)
     }
   }

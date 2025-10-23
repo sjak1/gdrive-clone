@@ -172,18 +172,19 @@ const folderStructure: Record<string, FileItem[]> = {
 
 export function FileList({ currentPath, searchQuery, onOpenFolder }: FileListProps) {
   const [starredItems, setStarredItems] = useState(
-    new Set(folderStructure["root"].filter((f) => f.starred).map((f) => f.id)),
+    new Set(folderStructure["root"]?.filter((f) => f.starred).map((f) => f.id) || []),
   )
 
   const getCurrentFolderId = () => {
     if (currentPath.length === 1) return "root"
-    return currentPath[currentPath.length - 1].toLowerCase().replace(/\s+/g, "-")
+    const lastPath = currentPath[currentPath.length - 1]
+    return lastPath?.toLowerCase().replace(/\s+/g, "-") || "root"
   }
 
   const currentFolderId = getCurrentFolderId()
-  const mockFiles = folderStructure[currentFolderId] || folderStructure["root"]
+  const mockFiles = folderStructure[currentFolderId] || folderStructure["root"] || []
 
-  const filteredFiles = mockFiles.filter((file) => file.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredFiles = mockFiles?.filter((file) => file.name.toLowerCase().includes(searchQuery.toLowerCase())) || []
 
   const toggleStar = (id: string, e: React.MouseEvent) => {
     e.stopPropagation()
